@@ -5,6 +5,16 @@
 **Status**: Draft  
 **Input**: User description: "build a petstore dashboard containing the statistics for petclinic with pet counts, visit trends and chart visualisations"
 
+## Clarifications
+
+### Session 2026-04-10
+
+- Q: What is the expected maximum number of pets/owners/visits in the system? → A: 1000-10000
+- Q: What is the target response time for API endpoints? → A: <1s
+- Q: Should the dashboard require authentication? → A: No, public access
+- Q: How many concurrent users should the dashboard support? → A: 10-100
+- Q: What should happen if the database is unavailable? → A: Show error page
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Summary Statistics (Priority: P1)
@@ -19,6 +29,7 @@ As a clinic administrator, I want to view a summary of key statistics (total pet
 
 1. **Given** the clinic has existing data, **When** I access the statistics dashboard, **Then** I see accurate totals for pets, owners, visits, and vets.
 2. **Given** no data exists, **When** I access the dashboard, **Then** I see zero counts displayed appropriately.
+3. **Given** database is unavailable, **When** I access the dashboard, **Then** I see an error page.
 
 ---
 
@@ -56,7 +67,8 @@ As a clinic administrator, I want to see visit trends over time (monthly for a g
 - What happens when database is empty? (Should show zeros)
 - How does system handle years with no visits? (Zero counts)
 - What if pet types have special characters? (Proper encoding)
-- Performance with large datasets? (Assume reasonable data size)
+- Performance with large datasets? (Assume up to 10000 records)
+- Database unavailable - show error page
 
 ## Requirements *(mandatory)*
 
@@ -84,10 +96,11 @@ As a clinic administrator, I want to see visit trends over time (monthly for a g
 
 ### Measurable Outcomes
 
-- **SC-001**: Dashboard loads and displays data in under 3 seconds for typical data sets
+- **SC-001**: Dashboard loads and displays data in under 1 second for typical data sets
 - **SC-002**: All API endpoints return accurate counts matching database queries
 - **SC-003**: Charts render correctly in modern browsers (Chrome, Firefox, Safari)
 - **SC-004**: System maintains existing functionality with no regressions
+- **SC-005**: Dashboard supports 10-100 concurrent users without degradation
 
 ## Assumptions
 
