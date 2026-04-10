@@ -1,11 +1,12 @@
 <!--
 Sync Impact Report:
-Version change: none → 1.0.0
-Modified principles: All new principles added
-Added sections: API Contract, Development Workflow
+Version change: 1.0.0 → 1.1.0
+Modified principles: None
+Added sections: Principle X (Query Implementation Standards)
 Removed sections: None
 Templates requiring updates: ✅ .specify/templates/plan-template.md (Constitution Check updated)
 Follow-up TODOs: None
+Rationale: MINOR bump (new principle added) per semantic versioning
 -->
 # Spring Petclinic SDD Constitution (Brownfield)
 <!-- Constitution for adding statistics dashboard feature to existing Spring Petclinic application -->
@@ -39,6 +40,9 @@ Must use Spring Boot 4.0.0+, Java 17+, Spring Data JPA with H2 (dev) / MySQL/Pos
 ### IX. Code Patterns
 Use constructor injection (no `@Autowired` on fields). Follow existing package structure conventions. Reference WelcomeController for page controllers, OwnerController for REST API patterns.
 
+### X. Query Implementation Standards (NON-NEGOTIABLE)
+Use JPA/repository methods (derived queries, `findBy...()`, built-in methods) instead of custom JPQL or native SQL queries. Leverage Spring Data JPA's query derivation for maintainability and consistency. Custom queries are only acceptable when derived queries cannot achieve the required functionality.
+
 ## API Contract (NON-NEGOTIABLE)
 ```yaml
 GET /api/stats/summary
@@ -60,4 +64,4 @@ Response: [{ month: string, count: int }, ...]
 ## Governance
 This constitution governs the addition of the statistics dashboard feature to the Spring Petclinic application. All development must comply with these principles. Amendments require documentation and approval. Constitution supersedes all other practices for this feature.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10
+**Version**: 1.1.0 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10

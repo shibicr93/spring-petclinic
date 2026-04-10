@@ -41,6 +41,7 @@
 - [ ] All new code has @WebMvcTest tests
 - [ ] Tech stack: Spring Boot 4.0.0+, Java 17+, Spring Data JPA, Thymeleaf
 - [ ] Constructor injection, follow existing patterns (WelcomeController, OwnerController)
+- [ ] Use JPA/repository methods instead of custom JPQL/SQL queries
 
 ## Project Structure
 
