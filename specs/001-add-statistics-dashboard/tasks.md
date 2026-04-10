@@ -29,8 +29,8 @@ description: "Task list for Statistics Dashboard implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create statistics package structure in src/main/java/org/springframework/samples/petclinic/statistics/
-- [ ] T002 Create test package structure in src/test/java/org/springframework/samples/petclinic/statistics/
+- [x] T001 Create statistics package structure in src/main/java/org/springframework/samples/petclinic/statistics/
+- [x] T002 Create test package structure in src/test/java/org/springframework/samples/petclinic/statistics/
 
 ---
 
@@ -40,12 +40,12 @@ description: "Task list for Statistics Dashboard implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 [P] Create SummaryStatsDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/SummaryStatsDto.java
-- [ ] T004 [P] Create PetTypeCountDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/PetTypeCountDto.java
-- [ ] T005 [P] Create VisitMonthCountDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/VisitMonthCountDto.java
-- [ ] T006 Create StatisticsService in src/main/java/org/springframework/samples/petclinic/statistics/StatisticsService.java
-- [ ] T007 Create StatisticsController in src/main/java/org/springframework/samples/petclinic/statistics/StatisticsController.java
-- [ ] T008 Create dashboard template in src/main/resources/templates/stats/dashboard.html
+- [x] T003 [P] Create SummaryStatsDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/SummaryStatsDto.java
+- [x] T004 [P] Create PetTypeCountDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/PetTypeCountDto.java
+- [x] T005 [P] Create VisitMonthCountDto in src/main/java/org/springframework/samples/petclinic/statistics/dto/VisitMonthCountDto.java
+- [x] T006 Create StatisticsService in src/main/java/org/springframework/samples/petclinic/statistics/StatisticsService.java
+- [x] T007 Create StatisticsController in src/main/java/org/springframework/samples/petclinic/statistics/StatisticsController.java
+- [x] T008 Create dashboard template in src/main/resources/templates/stats/dashboard.html
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -61,15 +61,15 @@ description: "Task list for Statistics Dashboard implementation"
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T009 [P] [US1] Create StatisticsControllerTest in src/test/java/org/springframework/samples/petclinic/statistics/StatisticsControllerTest.java
-- [ ] T010 [P] [US1] Add @WebMvcTest for /api/stats/summary endpoint in StatisticsControllerTest.java
+- [x] T009 [P] [US1] Create StatisticsControllerTest in src/test/java/org/springframework/samples/petclinic/statistics/StatisticsControllerTest.java
+- [x] T010 [P] [US1] Add @WebMvcTest for /api/stats/summary endpoint in StatisticsControllerTest.java
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement getSummaryStats() in StatisticsService.java
-- [ ] T012 [US1] Implement /api/stats/summary endpoint in StatisticsController.java
-- [ ] T013 [US1] Update dashboard.html to display summary statistics section
-- [ ] T014 [US1] Add navigation link to /stats in existing templates
+- [x] T011 [US1] Implement getSummaryStats() in StatisticsService.java
+- [x] T012 [US1] Implement /api/stats/summary endpoint in StatisticsController.java
+- [x] T013 [US1] Update dashboard.html to display summary statistics section
+- [x] T014 [US1] Add navigation link to /stats in existing templates
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -83,13 +83,30 @@ description: "Task list for Statistics Dashboard implementation"
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T015 [P] [US2] Add @WebMvcTest for /api/stats/pets-by-type endpoint in StatisticsControllerTest.java
+        <ul class="nav navbar-nav me-auto">
+
+          <li th:replace="~{::menuItem ('/','home','home page','home',#{home})}">
+            <span class="fa fa-home" aria-hidden="true"></span>
+            <span th:text="#{home}">Home</span>
+          </li>
+
+          <li th:replace="~{::menuItem ('/owners/find','owners','find owners','search',#{findOwners})}">
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <span th:text="#{findOwners}">Find owners</span>
+          </li>
+
+          <li th:replace="~{::menuItem ('/vets.html','vets','veterinarians','th-list',#{vets})}">
+            <span class="fa fa-th-list" aria-hidden="true"></span>
+            <span th:text="#{vets}">Veterinarians</span>
+          </li>
+
+- [x] T015 [P] [US2] Add @WebMvcTest for /api/stats/pets-by-type endpoint in StatisticsControllerTest.java
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implement getPetsByType() in StatisticsService.java
-- [ ] T017 [US2] Implement /api/stats/pets-by-type endpoint in StatisticsController.java
-- [ ] T018 [US2] Update dashboard.html to include Chart.js CDN and bar chart for pets by type
+- [x] T016 [US2] Implement getPetsByType() in StatisticsService.java
+- [x] T017 [US2] Implement /api/stats/pets-by-type endpoint in StatisticsController.java
+- [x] T018 [US2] Update dashboard.html to include Chart.js CDN and bar chart for pets by type
 
 **Checkpoint**: User Story 2 complete - pets by type chart functional
 
@@ -103,13 +120,13 @@ description: "Task list for Statistics Dashboard implementation"
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T019 [P] [US3] Add @WebMvcTest for /api/stats/visits-by-month endpoint in StatisticsControllerTest.java
+- [x] T019 [P] [US3] Add @WebMvcTest for /api/stats/visits-by-month endpoint in StatisticsControllerTest.java
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Implement getVisitsByMonth() in StatisticsService.java
-- [ ] T021 [US3] Implement /api/stats/visits-by-month endpoint in StatisticsController.java
-- [ ] T022 [US3] Update dashboard.html to include line chart for visit trends
+- [x] T020 [US3] Implement getVisitsByMonth() in StatisticsService.java
+- [x] T021 [US3] Implement /api/stats/visits-by-month endpoint in StatisticsController.java
+- [x] T022 [US3] Update dashboard.html to include line chart for visit trends
 
 **Checkpoint**: User Story 3 complete - visit trends chart functional
 
@@ -119,10 +136,10 @@ description: "Task list for Statistics Dashboard implementation"
 
 **Purpose**: Error handling, styling, and final touches
 
-- [ ] T023 Add global exception handling for database errors in StatisticsController.java
-- [ ] T024 Add responsive styling and layout improvements to dashboard.html
-- [ ] T025 Update navigation and add statistics menu item
-- [ ] T026 Add loading states and error messages to dashboard.html
+- [x] T023 Add global exception handling for database errors in StatisticsController.java
+- [x] T024 Add responsive styling and layout improvements to dashboard.html
+- [x] T025 Update navigation and add statistics menu item
+- [x] T026 Add loading states and error messages to dashboard.html
 - [ ] T027 Final integration testing and validation
 
 **Checkpoint**: Feature complete and production-ready
