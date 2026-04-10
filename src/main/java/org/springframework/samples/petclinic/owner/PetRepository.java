@@ -16,8 +16,6 @@
 package org.springframework.samples.petclinic.owner;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -29,10 +27,9 @@ import java.util.List;
 public interface PetRepository extends JpaRepository<Pet, Integer> {
 
 	/**
-	 * Count pets grouped by type.
-	 * @return list of objects containing type and count
+	 * Find all pets.
+	 * @return list of all pets
 	 */
-	@Query("SELECT new map(pt.name as type, count(p) as count) FROM Pet p JOIN p.type pt GROUP BY pt.name ORDER BY pt.name")
-	List<Object> countPetsByType();
+	List<Pet> findAll();
 
 }

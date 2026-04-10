@@ -1,23 +1,6 @@
-/*
- * Copyright 2012-2025 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.springframework.samples.petclinic.owner;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -29,11 +12,9 @@ import java.util.List;
 public interface VisitRepository extends JpaRepository<Visit, Integer> {
 
 	/**
-	 * Count visits grouped by month and year.
-	 * @param year the year to filter by
-	 * @return list of objects containing month (YYYY-MM format) and count
+	 * Find all visits.
+	 * @return list of all visits
 	 */
-	@Query("SELECT new map(FUNCTION('DATE_FORMAT', v.date, '%Y-%m') as month, count(v) as count) FROM Visit v WHERE YEAR(v.date) = :year GROUP BY FUNCTION('DATE_FORMAT', v.date, '%Y-%m') ORDER BY FUNCTION('DATE_FORMAT', v.date, '%Y-%m')")
-	List<Object> countVisitsByMonth(@Param("year") int year);
+	List<Visit> findAll();
 
 }
