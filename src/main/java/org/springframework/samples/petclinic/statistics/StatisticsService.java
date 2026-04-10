@@ -97,9 +97,8 @@ public class StatisticsService {
 		return visitRepository.findAll()
 			.stream()
 			.filter(visit -> visit.getDate() != null && visit.getDate().getYear() == year)
-			.collect(Collectors.groupingByConcurrent(
-				visit -> YearMonth.from(visit.getDate()).format(MONTH_FORMAT),
-				Collectors.counting()))
+			.collect(Collectors.groupingByConcurrent(visit -> YearMonth.from(visit.getDate()).format(MONTH_FORMAT),
+					Collectors.counting()))
 			.entrySet()
 			.stream()
 			.map(entry -> new VisitMonthCountDto(entry.getKey(), entry.getValue().intValue()))
