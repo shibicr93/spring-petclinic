@@ -1,50 +1,63 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: none → 1.0.0
+Modified principles: All new principles added
+Added sections: API Contract, Development Workflow
+Removed sections: None
+Templates requiring updates: ✅ .specify/templates/plan-template.md (Constitution Check updated)
+Follow-up TODOs: None
+-->
+# Spring Petclinic SDD Constitution (Brownfield)
+<!-- Constitution for adding statistics dashboard feature to existing Spring Petclinic application -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Brownfield Development Constraints (NON-NEGOTIABLE)
+No modifications to existing code in owner/, vet/, system/ packages. All changes must preserve existing functionality and patterns.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. New Feature Package Structure
+New code must be placed in the new package: `org.springframework.samples.petclinic.statistics`. This ensures clear separation of new features.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Repository Reuse
+Reuse existing repositories (OwnerRepository, PetRepository, VisitRepository, VetRepository) for data access. No new repositories unless absolutely necessary.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. API Design Standards
+DTOs must be used for API responses - never expose JPA entities directly. This ensures clean API contracts and prevents data leakage.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. REST API Implementation
+REST API must use `@RestController` with `@RequestMapping("/api/stats")`. Follow existing controller patterns for consistency.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. Dashboard UI Requirements
+Dashboard UI must use Thymeleaf templates following existing patterns. Charts implemented with Chart.js via CDN (no new Maven dependencies).
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### VII. Testing Requirements (NON-NEGOTIABLE)
+All new code must have tests using `@WebMvcTest` for controllers. Follow existing testing patterns with JUnit 5 + MockMvc.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### VIII. Tech Stack Compliance
+Must use Spring Boot 4.0.0+, Java 17+, Spring Data JPA with H2 (dev) / MySQL/PostgreSQL (prod), Thymeleaf for UI.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### IX. Code Patterns
+Use constructor injection (no `@Autowired` on fields). Follow existing package structure conventions. Reference WelcomeController for page controllers, OwnerController for REST API patterns.
+
+## API Contract (NON-NEGOTIABLE)
+```yaml
+GET /api/stats/summary
+Response: { totalPets: int, totalOwners: int, totalVisits: int, totalVets: int }
+
+GET /api/stats/pets-by-type
+Response: [{ type: string, count: int }, ...]
+
+GET /api/stats/visits-by-month?year=2026
+Response: [{ month: string, count: int }, ...]
+```
+
+## Development Workflow
+- Start with specification using existing patterns
+- Implement in statistics package
+- Test with @WebMvcTest
+- Follow brownfield constraints strictly
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution governs the addition of the statistics dashboard feature to the Spring Petclinic application. All development must comply with these principles. Amendments require documentation and approval. Constitution supersedes all other practices for this feature.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10

@@ -31,7 +31,16 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] No modifications to existing code in owner/, vet/, system/ packages
+- [ ] New code in org.springframework.samples.petclinic.statistics package
+- [ ] Reuse existing repositories (OwnerRepository, PetRepository, VisitRepository, VetRepository)
+- [ ] DTOs for API responses, no direct JPA entity exposure
+- [ ] REST API uses @RestController with @RequestMapping("/api/stats")
+- [ ] Dashboard UI uses Thymeleaf following existing patterns
+- [ ] Charts use Chart.js via CDN (no new Maven dependencies)
+- [ ] All new code has @WebMvcTest tests
+- [ ] Tech stack: Spring Boot 4.0.0+, Java 17+, Spring Data JPA, Thymeleaf
+- [ ] Constructor injection, follow existing patterns (WelcomeController, OwnerController)
 
 ## Project Structure
 
