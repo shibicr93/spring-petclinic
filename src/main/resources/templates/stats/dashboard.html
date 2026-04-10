@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'stats')}">
+
+<head>
+    <style>
+        .stat-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .stat-card h3 {
+            color: #495057;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+        .error-message {
+            color: #dc3545;
+            padding: 1rem;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 th:text="#{statisticsDashboard}">Statistics Dashboard</h2>
+
+    <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+    <!-- Summary Statistics -->
+    <div class="row">
+        <h3 th:text="#{summaryStatistics}">Summary Statistics</h3>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <h3 th:text="#{totalPets}">Total Pets</h3>
+                <div class="stat-value" th:text="${summary.totalPets}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <h3 th:text="#{totalOwners}">Total Owners</h3>
+                <div class="stat-value" th:text="${summary.totalOwners}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <h3 th:text="#{totalVisits}">Total Visits</h3>
+                <div class="stat-value" th:text="${summary.totalVisits}">0</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <h3 th:text="#{totalVets}">Total Vets</h3>
+                <div class="stat-value" th:text="${summary.totalVets}">0</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pets by Type Chart -->
+    <div class="row" th:if="${petsByType and !petsByType.isEmpty()}">
+        <div class="col-md-6">
+            <h3 th:text="#{petsByType}">Pets by Type</h3>
+            <div class="chart-container">
+                <canvas id="petTypeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visits by Month Chart -->
+    <div class="row" th:if="${visitsByMonth and !visitsByMonth.isEmpty()}">
+        <div class="col-md-6">
+            <h3 th:text="#{visitsByMonth} + ' (' + ${year} + ')'">Visits by Month</h3>
+            <div class="chart-container">
+                <canvas id="visitMonthChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        
+        // Pets by Type Chart
+        const petsByType = [[${petsByType}]];
+        if (petsByType && petsByType.length > 0) {
+            const petCtx = document.getElementById('petTypeChart').getContext('2d');
+            const petChart = new Chart(petCtx, {
+                type: 'bar',
+                data: {
+                    labels: petsByType.map(p => p.type),
+                    datasets: [{
+                        label: 'Count',
+                        data: petsByType.map(p => p.count),
+                        backgroundColor: '#007bff',
+                        borderColor: '#0056b3',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Visits by Month Chart
+        const visitsByMonth = [[${visitsByMonth}]];
+        if (visitsByMonth && visitsByMonth.length > 0) {
+            const visitCtx = document.getElementById('visitMonthChart').getContext('2d');
+            const visitChart = new Chart(visitCtx, {
+                type: 'line',
+                data: {
+                    labels: visitsByMonth.map(v => v.month),
+                    datasets: [{
+                        label: 'Visits',
+                        data: visitsByMonth.map(v => v.count),
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /*]]>*/
+    </script>
+
+</body>
+
+</html>
